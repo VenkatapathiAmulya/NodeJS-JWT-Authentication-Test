@@ -32,7 +32,7 @@
 <script>
     var token ='';
     function login() {
-        history.pushState(null, null, "/")
+        history.pushState(null, null, "/api/login")
         const data = {
             username: document.getElementById('username').value,
             password: document.getElementById('password').value,
@@ -115,7 +115,7 @@ setInterval(function(){
             console.log("****** token expired ***************")
             login();
         }
-}, 10 * 1000);  
+}, 180 * 1000);  
 
 </script>
 
