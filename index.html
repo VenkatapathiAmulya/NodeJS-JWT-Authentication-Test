@@ -28,7 +28,7 @@
 
         </main>
     </div>
- 0
+
 <script>
     var token ='';
     function login() {
@@ -53,13 +53,10 @@
     }
     function isAuthenticated() {
             const token = localStorage.getItem('jwt');
-            console.log("*************** token",token);
             try {
                 var ca = token;
                 var base64Url = ca.split('.')[1];
                 var decodedValue = JSON.parse(window.atob(base64Url));
-                console.log("^^^^^^^^^^^^decodevalue exp ^^^^^^^^",decodedValue.exp);
-                console.log("$$$$$$$$ datenow: ",Date.now());
                 if (Date.now() >= decodedValue.exp * 1000) {
                     return false;
                 }
@@ -81,6 +78,7 @@
             if(res && res.data && res.data.success) {
                 document.querySelector('h1.row').innerHTML='Dashboard';
                 document.querySelector('main').innerHTML= res.data.myContent;
+
             }
         });
     }
@@ -99,13 +97,26 @@
             }
         });
     }
-    // function onLoad() {
-    //     const token = localStorage.getItem('jwt');
-    //     if (token) {
-    //         getDashboard();
-    //     }
-    // }
-    // onLoad();
+
+
+// console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+// if (isAuthenticated()) {
+//             getDashboard();
+//         }
+//         else {
+//             login();
+//         }
+setInterval(function(){
+    if (isAuthenticated()) {
+        console.log("********** token is valid***********")
+            getDashboard();
+        }
+        else {
+            console.log("****** token expired ***************")
+            login();
+        }
+}, 10 * 1000);  
+
 </script>
 
 </body>
