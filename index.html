@@ -32,7 +32,7 @@
 <script>
     var token ='';
     function login() {
-        history.pushState(null, null, "/api/login")
+        history.pushState(null, null, "/")
         const data = {
             username: document.getElementById('username').value,
             password: document.getElementById('password').value,
@@ -98,14 +98,11 @@
         });
     }
 
-
-// console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-// if (isAuthenticated()) {
-//             getDashboard();
-//         }
-//         else {
-//             login();
-//         }
+    function logout() {
+            history.replaceState('http://localhost:3000', 'Login', '/');
+            localStorage.clear();        
+            window.location.reload();
+        }
 setInterval(function(){
     if (isAuthenticated()) {
         console.log("********** token is valid***********")
@@ -113,7 +110,7 @@ setInterval(function(){
         }
         else {
             console.log("****** token expired ***************")
-            login();
+            logout();
         }
 }, 180 * 1000);  
 
